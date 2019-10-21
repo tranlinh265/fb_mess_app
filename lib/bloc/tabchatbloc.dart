@@ -37,7 +37,7 @@ class TabChatBlocImpl implements TabChatBloc {
       var responseData = json.decode(respose.body);
       _userList.clear();
       for (var user in responseData) {
-        _userList.add(User(user["name"], user["picture"], user["greeting"]));
+        _userList.add(User.fromJson(user));
       }
       _behaviorSubject.sink.add(_userList);
     }
