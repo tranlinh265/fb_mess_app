@@ -28,25 +28,36 @@ class _TabChatWidgetState extends State<TabChatWidget> {
           child: StreamBuilder(
         stream: _tabChatBloc.userListObservable,
         builder: (context, AsyncSnapshot<List<User>> snapshot) {
-          if (snapshot.data == null) {
-            return Text('Loading');
+          if (snapshot.hasData) {
+            return _buildChatListWidget(snapshot);
+          } else if (snapshot.hasError) {
+            return _buildErrorWidget();
+          } else {
+            return _buildLoadingWidget();
           }
-          return ListView.builder(
-              itemCount: snapshot.data.length,
-              itemBuilder: (context, position) {
-                return ListTile(
-                  title: Text(snapshot.data[position].name),
-                  leading: CircleAvatar(
-                    backgroundImage:
-                        NetworkImage(snapshot.data[position].avatar),
-                  ),
-                  subtitle: Text(snapshot.data[position].message),
-                );
-              });
         },
       )),
     );
   }
+
+  Widget _buildLoadingWidget() => Center(
+        child: CircularProgressIndicator(),
+      );
+
+  Widget _buildChatListWidget(AsyncSnapshot<List<User>> snapshot) =>
+      ListView.builder(
+          itemCount: snapshot.data.length,
+          itemBuilder: (context, position) {
+            return ListTile(
+              title: Text(snapshot.data[position].name),
+              leading: CircleAvatar(
+                backgroundImage: NetworkImage(snapshot.data[position].avatar),
+              ),
+              subtitle: Text(snapshot.data[position].message),
+            );
+          });
+
+  Widget _buildErrorWidget() => Text("Error");
 
   @override
   void dispose() {

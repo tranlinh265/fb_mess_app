@@ -13,7 +13,7 @@ abstract class TabChatBloc {
 
 class TabChatBlocImpl implements TabChatBloc {
   BehaviorSubject<List<User>> _behaviorSubject;
-  List<User> _userList = [];
+  List<User> _userList;
 
   TabChatBlocImpl() {
     this._behaviorSubject =
@@ -35,11 +35,19 @@ class TabChatBlocImpl implements TabChatBloc {
 
     if (respose.statusCode == 200) {
       var responseData = json.decode(respose.body);
-      _userList.clear();
+      _resetUserList();
+
       for (var user in responseData) {
         _userList.add(User.fromJson(user));
       }
       _behaviorSubject.sink.add(_userList);
     }
+  }
+
+  void _resetUserList() {
+    if (_userList == null) {
+      _userList = [];
+    }
+    _userList.clear();
   }
 }
