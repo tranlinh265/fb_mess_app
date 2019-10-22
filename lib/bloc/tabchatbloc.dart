@@ -1,3 +1,4 @@
+import 'package:fb_mess_app/define.dart';
 import 'package:fb_mess_app/model/user.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:http/http.dart' as http;
@@ -31,7 +32,7 @@ class TabChatBlocImpl implements TabChatBloc {
   @override
   void getUserList() async {
     final respose = await http
-        .get("http://www.json-generator.com/api/json/get/cfLKbVWkKq?indent=2");
+        .get(ApiUrl.API_GET_USER_LIST);
 
     if (respose.statusCode == 200) {
       var responseData = json.decode(respose.body);

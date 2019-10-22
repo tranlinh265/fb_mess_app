@@ -1,4 +1,5 @@
 import 'package:fb_mess_app/bloc/tabchatbloc.dart';
+import 'package:fb_mess_app/define.dart';
 import 'package:fb_mess_app/model/user.dart';
 import 'package:flutter/material.dart';
 
@@ -47,7 +48,7 @@ class _TabChatWidgetState extends State<TabChatWidget> {
             backgroundImage: NetworkImage("http://placehold.it/32x32"),
           ),
         ),
-        title: Text("Chats"),
+        title: Text(ScreenName.CHAT_SCREEN),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.camera_alt),
