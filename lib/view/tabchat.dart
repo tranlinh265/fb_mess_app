@@ -21,9 +21,7 @@ class _TabChatWidgetState extends State<TabChatWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('sample app'),
-      ),
+      appBar: _buildAppBar(),
       body: Center(
           child: StreamBuilder(
         stream: _tabChatBloc.userListObservable,
@@ -39,6 +37,32 @@ class _TabChatWidgetState extends State<TabChatWidget> {
       )),
     );
   }
+
+  AppBar _buildAppBar() => AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: Container(
+          margin: EdgeInsets.all(13.0),
+          child: CircleAvatar(
+            backgroundImage: NetworkImage("http://placehold.it/32x32"),
+          ),
+        ),
+        title: Text("Chats"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.camera_alt),
+            onPressed: () {
+              print("camera pressed");
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.edit),
+            onPressed: () {
+              print("new mess");
+            },
+          )
+        ],
+      );
 
   Widget _buildLoadingWidget() => Center(
         child: CircularProgressIndicator(),
