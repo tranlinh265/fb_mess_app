@@ -36,8 +36,33 @@ class _TabChatWidgetState extends State<TabChatWidget> {
           }
         },
       )),
+      bottomNavigationBar: _buildBottomNavigationBar(),
     );
   }
+
+  BottomAppBar _buildBottomNavigationBar() => BottomAppBar(
+        child: Container(
+          margin: EdgeInsets.only(left: 20, right: 20),
+          child:  Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(Icons.message),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: Icon(Icons.people),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: Icon(Icons.near_me),
+                onPressed: () {},
+              )
+            ],
+          ),
+        )
+      );
 
   AppBar _buildAppBar() => AppBar(
         backgroundColor: Colors.transparent,
