@@ -1,6 +1,7 @@
 import 'package:fb_mess_app/bloc/tabchatbloc.dart';
 import 'package:fb_mess_app/define.dart';
 import 'package:fb_mess_app/model/user.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TabChatWidget extends StatefulWidget {
@@ -23,27 +24,53 @@ class _TabChatWidgetState extends State<TabChatWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
-      body: ListView(
-        physics: BouncingScrollPhysics(),
-        children: <Widget>[
-          _buildSearchView(),
-          StreamBuilder(
-            stream: _tabChatBloc.userListObservable,
-            builder: (context, AsyncSnapshot<List<User>> snapshot) {
-              if (snapshot.hasData) {
-                return _buildChatListWidget(snapshot);
-              } else if (snapshot.hasError) {
-                return _buildErrorWidget();
-              } else {
-                return _buildLoadingWidget();
-              }
-            },
-          )
-        ],
-      ),
+      body: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              _buildSearchView(),
+              _buildStoryList(),
+              StreamBuilder(
+                stream: _tabChatBloc.userListObservable,
+                builder: (context, AsyncSnapshot<List<User>> snapshot) {
+                  if (snapshot.hasData) {
+                    return _buildChatListWidget(snapshot);
+                  } else if (snapshot.hasError) {
+                    return _buildErrorWidget();
+                  } else {
+                    return _buildLoadingWidget();
+                  }
+                },
+              )
+            ],
+          )),
       bottomNavigationBar: _buildBottomNavigationBar(),
     );
   }
+
+  Widget _buildStoryList() => SizedBox(
+        height: 100,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          itemCount: 20,
+          itemBuilder: (context, index) {
+            return Container(
+              height: 90,
+              width: 70,
+              child: Column(
+                children: <Widget>[
+                  CircleAvatar(
+                    backgroundImage: NetworkImage("http://placehold.it/32x32"),
+                  ),
+                  Text("Linh")
+                ],
+              ),
+            );
+          },
+        ),
+      );
 
   Widget _buildSearchView() => Row(
         children: <Widget>[
