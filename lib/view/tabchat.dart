@@ -23,46 +23,60 @@ class _TabChatWidgetState extends State<TabChatWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
-      body: Center(
-          child: StreamBuilder(
-        stream: _tabChatBloc.userListObservable,
-        builder: (context, AsyncSnapshot<List<User>> snapshot) {
-          if (snapshot.hasData) {
-            return _buildChatListWidget(snapshot);
-          } else if (snapshot.hasError) {
-            return _buildErrorWidget();
-          } else {
-            return _buildLoadingWidget();
-          }
-        },
-      )),
+      body: ListView(
+        physics: BouncingScrollPhysics(),
+        children: <Widget>[
+          _buildSearchView(),
+          StreamBuilder(
+            stream: _tabChatBloc.userListObservable,
+            builder: (context, AsyncSnapshot<List<User>> snapshot) {
+              if (snapshot.hasData) {
+                return _buildChatListWidget(snapshot);
+              } else if (snapshot.hasError) {
+                return _buildErrorWidget();
+              } else {
+                return _buildLoadingWidget();
+              }
+            },
+          )
+        ],
+      ),
       bottomNavigationBar: _buildBottomNavigationBar(),
     );
   }
 
-  BottomAppBar _buildBottomNavigationBar() => BottomAppBar(
-        child: Container(
-          margin: EdgeInsets.only(left: 20, right: 20),
-          child:  Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.message),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: Icon(Icons.people),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: Icon(Icons.near_me),
-                onPressed: () {},
-              )
-            ],
-          ),
-        )
+  Widget _buildSearchView() => Row(
+        children: <Widget>[
+          Icon(Icons.search),
+          Text("Search people, message"),
+          FlatButton(
+            child: Text("SMS"),
+          )
+        ],
       );
+
+  BottomAppBar _buildBottomNavigationBar() => BottomAppBar(
+          child: Container(
+        margin: EdgeInsets.only(left: 20, right: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            IconButton(
+              icon: Icon(Icons.message),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(Icons.people),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(Icons.near_me),
+              onPressed: () {},
+            )
+          ],
+        ),
+      ));
 
   AppBar _buildAppBar() => AppBar(
         backgroundColor: Colors.transparent,
@@ -96,6 +110,8 @@ class _TabChatWidgetState extends State<TabChatWidget> {
 
   Widget _buildChatListWidget(AsyncSnapshot<List<User>> snapshot) =>
       ListView.builder(
+          shrinkWrap: true,
+          physics: ScrollPhysics(),
           itemCount: snapshot.data.length,
           itemBuilder: (context, position) {
             return ListTile(
