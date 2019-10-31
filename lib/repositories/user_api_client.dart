@@ -11,7 +11,7 @@ class UserApiClient {
   UserApiClient({@required this.httpClient}) : assert(httpClient != null);
 
   Future<List<User>> fetchChatList() async {
-    final chatListUrl = "$baseUrl/api/get/cezgOWivOq?indent=2";
+    final chatListUrl = "$baseUrl/api/json/get/cezgOWivOq?indent=2";
 
     final chatListResponse = await this.httpClient.get(chatListUrl);
 
@@ -19,6 +19,8 @@ class UserApiClient {
       throw Exception('Error when getting user list');
     }
 
-    return jsonDecode(chatListResponse.body) as List<User>;
+    final data = json.decode(chatListResponse.body) as List;
+
+    return data.map((raw) => User.fromJson(raw)).toList();
   }
 }

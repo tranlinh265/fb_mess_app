@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 
 class User extends Equatable {
-  var name;
-  var avatar;
-  var message;
+  final name;
+  final avatar;
+  final message;
 
   User({this.name, this.avatar, this.message});
 
