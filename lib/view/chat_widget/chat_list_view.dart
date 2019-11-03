@@ -20,10 +20,23 @@ class ChatListView extends StatelessWidget {
                 backgroundImage: NetworkImage(chatList[position].avatar),
               ),
             ),
-            title: Text(chatList[position].name),
-            subtitle: Text(
-              chatList[position].message,
-              maxLines: 1,
+            title: Text(
+              chatList[position].name,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            subtitle: Row(
+              children: <Widget>[
+                Flexible(
+                  child: Text(
+                    chatList[position].message,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Text('8:45 PM'),
+              ],
             ),
             trailing: Container(
               child: Center(
