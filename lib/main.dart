@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: BlocProvider(
-        builder: (context) => ChatBloc(userRepository: this.userRepository),
+        builder: (context) => ChatBloc(userRepository: this.userRepository)..add(FetchChats()),
         child: ChatWidget(),
       ),
     );

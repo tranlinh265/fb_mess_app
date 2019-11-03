@@ -39,12 +39,6 @@ class _ChatWidgetState extends State<ChatWidget> {
           },
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          BlocProvider.of<ChatBloc>(context).add(FetchChats());
-        },
-      ),
     );
   }
 }

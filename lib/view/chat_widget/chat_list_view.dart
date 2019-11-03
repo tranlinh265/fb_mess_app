@@ -12,12 +12,42 @@ class ChatListView extends StatelessWidget {
         itemCount: chatList.length,
         itemBuilder: (context, position) {
           return ListTile(
-            leading: CircleAvatar(
-              backgroundImage: NetworkImage(chatList[position].avatar),
+            leading: Container(
+              height: 50,
+              width: 50,
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(chatList[position].avatar),
+              ),
             ),
             title: Text(chatList[position].name),
-            subtitle: Text(chatList[position].message),
+            subtitle: Text(
+              chatList[position].message,
+              maxLines: 1,
+            ),
+            trailing: Container(
+              child: Center(
+                child: _buildTrailingWidget(chatList[position]),
+              ),
+              height: 20,
+              width: 20,
+            ),
           );
         });
+  }
+
+  Widget _buildTrailingWidget(User item) {
+    if (item.isBlockNoti) {
+      return Icon(Icons.notifications_off);
+    }
+    if (item.isRead) {
+      return CircleAvatar(
+        backgroundImage: NetworkImage(item.avatar),
+      );
+    }
+    if (item.isSent) {
+      return Icon(Icons.check_circle);
+    }
+
+    return null;
   }
 }
