@@ -11,7 +11,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   ChatBloc({@required this.userRepository}) : assert(userRepository != null);
 
   @override
-  ChatState get initialState => ChatsEmpty();
+  ChatState get initialState => ChatsUninittialized();
 
   @override
   Stream<ChatState> mapEventToState(
@@ -22,6 +22,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
       try {
         final List<User> chatlist = await userRepository.getChatList();
+        if(chatlist.isEmpty){
+          yield ChatsEmpty();
+        }
         yield ChatsLoaded(chatList: chatlist);
       } catch (_) {
         yield ChatsLoadError();
