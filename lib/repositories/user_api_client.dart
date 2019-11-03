@@ -11,7 +11,7 @@ class UserApiClient {
   UserApiClient({@required this.httpClient}) : assert(httpClient != null);
 
   Future<List<User>> fetchChatList() async {
-    final chatListUrl = "$baseUrl/api/json/get/cezgOWivOq?indent=2";
+    final chatListUrl = "$baseUrl/api/json/get/ceXAJCMTzC?indent=2";
 
     final chatListResponse = await this.httpClient.get(chatListUrl);
 
