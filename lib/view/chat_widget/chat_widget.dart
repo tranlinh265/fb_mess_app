@@ -1,14 +1,15 @@
 import 'package:fb_mess_app/bloc/bloc.dart';
+import 'package:fb_mess_app/view/chat_widget/chat_list_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class TabChatWidget extends StatefulWidget {
+class ChatWidget extends StatefulWidget {
   @override
-  _TabChatWidgetState createState() => _TabChatWidgetState();
+  _ChatWidgetState createState() => _ChatWidgetState();
 }
 
-class _TabChatWidgetState extends State<TabChatWidget> {
+class _ChatWidgetState extends State<ChatWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,8 +26,11 @@ class _TabChatWidgetState extends State<TabChatWidget> {
               return Text("Loading");
             }
             if (state is ChatsLoaded) {
+              final chatList = state.chatList;
               print(state.chatList);
-              return Text("Loaded");
+              return ChatListView(
+                chatList: chatList,
+              );
             }
             if (state is ChatsLoadError) {
               return Text('error');

@@ -1,6 +1,6 @@
 import 'package:fb_mess_app/bloc/bloc.dart';
 import 'package:fb_mess_app/repositories/repositories.dart';
-import 'package:fb_mess_app/view/tabchat.dart';
+import 'package:fb_mess_app/view/chat_widget/chat_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
       ),
       home: BlocProvider(
         builder: (context) => ChatBloc(userRepository: this.userRepository),
-        child: TabChatWidget(),
+        child: ChatWidget(),
       ),
     );
   }
