@@ -17,7 +17,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   Stream<ChatState> mapEventToState(
     ChatEvent event,
   ) async* {
-    if (event is FetchChats) {
+    if (event is FetchChats || event is RefreshChats) {
       yield ChatsLoading();
 
       try {
