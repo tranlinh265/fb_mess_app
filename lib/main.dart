@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
           ),
           body: BlocProvider(
             builder: (context) => ChatBloc(userRepository: this.userRepository)
-              ..add(FetchChats()),
+              ..add(FetchChatAndStory()),
             child: ChatWidget(),
           ),
         ));

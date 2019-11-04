@@ -9,8 +9,8 @@ class ChatListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        physics: const AlwaysScrollableScrollPhysics(),
         itemCount: chatList.length,
+        shrinkWrap: true,
         itemBuilder: (context, position) {
           return ListTile(
             leading: Container(

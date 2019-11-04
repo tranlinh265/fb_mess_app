@@ -17,14 +17,19 @@ class ChatsLoading extends ChatState {}
 
 class ChatsLoaded extends ChatState {
   final List<User> chatList;
+  final List<Story> storyList;
+
   final bool hasReachedMax;
 
-  const ChatsLoaded({@required this.chatList, this.hasReachedMax})
+  const ChatsLoaded(
+      {@required this.chatList, @required this.storyList, this.hasReachedMax})
       : assert(chatList != null);
 
-  ChatsLoaded copyWith({List<User> chatList, bool hasReachedMax}) {
+  ChatsLoaded copyWith(
+      {List<User> chatList, List<Story> storyList, bool hasReachedMax}) {
     return ChatsLoaded(
       chatList: chatList ?? this.chatList,
+      storyList: storyList ?? this.storyList,
       hasReachedMax: hasReachedMax ?? this.hasReachedMax,
     );
   }

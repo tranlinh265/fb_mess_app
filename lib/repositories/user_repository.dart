@@ -10,4 +10,8 @@ class UserRepository {
   Future<List<User>> getChatList() async {
     return await userApiClient.fetchChatList();
   }
+
+  Future<List<Story>> getStoryList() async {
+    return await userApiClient.fetchStoryList();
+  }
 }
